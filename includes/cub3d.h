@@ -6,7 +6,7 @@
 /*   By: osarsari <osarsari@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 09:18:44 by osarsari          #+#    #+#             */
-/*   Updated: 2024/02/28 15:25:54 by osarsari         ###   ########.fr       */
+/*   Updated: 2024/02/28 17:24:23 by osarsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,14 @@ typedef struct s_delta
 	int	err;
 	int	e2;
 }		t_delta;
+
+// Ray struct
+typedef struct s_ray
+{
+	t_point	start;
+	int		dx;
+	int		dy;
+}			t_ray;
 
 // utils
 void	draw_pixel(t_img *img, t_pixel *pixel);

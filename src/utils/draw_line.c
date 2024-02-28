@@ -6,7 +6,7 @@
 /*   By: osarsari <osarsari@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 10:09:46 by osarsari          #+#    #+#             */
-/*   Updated: 2024/02/28 15:25:46 by osarsari         ###   ########.fr       */
+/*   Updated: 2024/02/28 17:05:21 by osarsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,5 @@ void	draw_line(t_img *img, t_point *a, t_point *b, int color)
 			pixel.point.y += delta.sy;
 		}
 	}
+	draw_pixel(img, &pixel);
 }
