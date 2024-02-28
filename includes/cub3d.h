@@ -6,7 +6,7 @@
 /*   By: osarsari <osarsari@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 09:18:44 by osarsari          #+#    #+#             */
-/*   Updated: 2024/02/28 10:25:53 by osarsari         ###   ########.fr       */
+/*   Updated: 2024/02/28 15:25:54 by osarsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,17 @@ typedef struct s_pixel
 	t_point	point;
 	int		color;
 }			t_pixel;
+
+// Struct helper containing the values of the Bresenham's line algorithm
+typedef struct s_delta
+{
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	err;
+	int	e2;
+}		t_delta;
 
 // utils
 void	draw_pixel(t_img *img, t_pixel *pixel);

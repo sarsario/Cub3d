@@ -6,22 +6,11 @@
 /*   By: osarsari <osarsari@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 10:09:46 by osarsari          #+#    #+#             */
-/*   Updated: 2024/02/28 14:42:42 by osarsari         ###   ########.fr       */
+/*   Updated: 2024/02/28 15:25:46 by osarsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-// Struct helper containing the values of the Bresenham's line algorithm
-typedef struct s_delta
-{
-	int	dx;
-	int	dy;
-	int	sx;
-	int	sy;
-	int	err;
-	int	e2;
-}		t_delta;
 
 void	delta_calc(t_delta *delta, t_point *a, t_point *b)
 {
