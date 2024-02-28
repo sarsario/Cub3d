@@ -1,19 +1,23 @@
 NAME = cub3D
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-MLX = -L/usr/local/lib -lmlx -framework OpenGL -framework AppKit
-SRC_DIR = srcs
-SRC = $(SRC_DIR)/main.c
+MLX = -L./mlx -lmlx -framework OpenGL -framework AppKit
+SRC_DIR = src
+UTILS = $(SRC_DIR)/utils
+SRC = \
+	$(SRC_DIR)/main.c \
+	# $(UTILS)/utils.c
 
+OBJ = $(SRC:.c=.o)
 RM = rm -f
 
 all: $(NAME)
 
-$(NAME):
-	$(CC) $(CFLAGS) $(SRC) $(MLX) -o $(NAME)
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(MLX)
 
 clean:
-	$(RM) $(SRC_DIR)/*.o
+	$(RM) $(OBJ)
 
 fclean: clean
 	rm -f $(NAME)
