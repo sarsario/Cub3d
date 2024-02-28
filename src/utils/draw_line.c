@@ -6,7 +6,7 @@
 /*   By: osarsari <osarsari@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 10:09:46 by osarsari          #+#    #+#             */
-/*   Updated: 2024/02/28 11:03:53 by osarsari         ###   ########.fr       */
+/*   Updated: 2024/02/28 14:42:42 by osarsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,21 @@ typedef struct s_delta
 	int	err;
 	int	e2;
 }		t_delta;
+
+void	delta_calc(t_delta *delta, t_point *a, t_point *b)
+{
+	delta->dx = abs(b->x - a->x);
+	delta->dy = abs(b->y - a->y);
+	delta->sx = -1;
+	delta->sy = -1;
+	if (a->x < b->x)
+		delta->sx = 1;
+	if (a->y < b->y)
+		delta->sy = 1;
+	delta->err = -delta->dy / 2;
+	if (delta->dx > delta->dy)
+		delta->err = delta->dx / 2;
+}
 
 /*
 ** This function draws a line between two points using the Bresenham's line
@@ -43,17 +58,7 @@ void	draw_line(t_img *img, t_point *a, t_point *b, int color)
 	pixel.color = color;
 	pixel.point.x = a->x;
 	pixel.point.y = a->y;
-	delta.dx = abs(b->x - a->x);
-	delta.dy = abs(b->y - a->y);
-	delta.sx = -1;
-	delta.sy = -1;
-	if (a->x < b->x)
-		delta.sx = 1;
-	if (a->y < b->y)
-		delta.sy = 1;
-	delta.err = -delta.dy / 2;
-	if (delta.dx > delta.dy)
-		delta.err = delta.dx / 2;
+	delta_calc(&delta, a, b);
 	while (pixel.point.x != b->x || pixel.point.y != b->y)
 	{
 		draw_pixel(img, &pixel);
