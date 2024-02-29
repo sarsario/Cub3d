@@ -6,7 +6,7 @@
 /*   By: osarsari <osarsari@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 09:18:44 by osarsari          #+#    #+#             */
-/*   Updated: 2024/02/29 11:33:56 by osarsari         ###   ########.fr       */
+/*   Updated: 2024/02/29 11:43:23 by osarsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct s_win
 }			t_win;
 
 // utils
+int		rgb_to_int(int r, int g, int b);
 void	draw_pixel(t_img *img, t_pixel *pixel);
 // void	draw_line(t_img *img, t_point *a, t_point *b, int color);
 void	draw_bg(t_img *img, int ceiling, int floor);
