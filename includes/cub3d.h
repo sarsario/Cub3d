@@ -6,7 +6,7 @@
 /*   By: osarsari <osarsari@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 09:18:44 by osarsari          #+#    #+#             */
-/*   Updated: 2024/02/28 17:24:23 by osarsari         ###   ########.fr       */
+/*   Updated: 2024/02/29 11:33:56 by osarsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ typedef struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
-}	t_img;
+}			t_img;
 
 // Point struct
 typedef struct s_point
 {
 	int	x;
 	int	y;
-}	t_point;
+}		t_point;
 
 // Pixel struct
 typedef struct s_pixel
@@ -71,8 +71,17 @@ typedef struct s_ray
 	int		dy;
 }			t_ray;
 
+// Window struct
+typedef struct s_win
+{
+	void	*mlx;
+	void	*win;
+	t_img	img;
+}			t_win;
+
 // utils
 void	draw_pixel(t_img *img, t_pixel *pixel);
-void	draw_line(t_img *img, t_point *a, t_point *b, int color);
+// void	draw_line(t_img *img, t_point *a, t_point *b, int color);
+void	draw_bg(t_img *img, int ceiling, int floor);
 
 #endif

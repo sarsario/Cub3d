@@ -6,7 +6,7 @@
 /*   By: osarsari <osarsari@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 17:04:11 by osarsari          #+#    #+#             */
-/*   Updated: 2024/02/29 10:25:49 by osarsari         ###   ########.fr       */
+/*   Updated: 2024/02/29 11:01:37 by osarsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,7 @@ void	ray_cast(t_point *start, double angle, int **map, t_img *img)
 			p.y += delta.sy;
 		}
 	}
-	// Now that we have the intersection, we know how far the wall is.
-	// Next is to calculate the height of the wall and draw it.
+	// Draw the line between the two points
 }
 
 // Function to calculate how tall the wall should be drawn

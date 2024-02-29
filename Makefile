@@ -6,7 +6,8 @@ SRC_DIR = src
 UTILS = $(SRC_DIR)/utils
 SRC = \
 	$(SRC_DIR)/main.c \
-	# $(UTILS)/utils.c
+	$(UTILS)/utils.c \
+	$(UTILS)/draw_bg.c \
 
 OBJ = $(SRC:.c=.o)
 RM = rm -f
@@ -24,4 +25,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+run: all
+	./$(NAME)
+
+.PHONY: all clean fclean re run
