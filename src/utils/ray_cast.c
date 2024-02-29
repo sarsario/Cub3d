@@ -6,7 +6,7 @@
 /*   By: osarsari <osarsari@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 17:04:11 by osarsari          #+#    #+#             */
-/*   Updated: 2024/02/29 11:01:37 by osarsari         ###   ########.fr       */
+/*   Updated: 2024/02/29 12:00:24 by osarsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,50 +27,25 @@ void	delta_calc(t_delta *delta, t_point *start, double angle)
 		delta->err = delta->dx / 2;
 }
 
-/*
-** The purpose of the ray casting in this project is to determine the
-** coordinates p1 and p2 of the obstacles. Still not sure if it is p1 and p2 on
-** the same line or p1 and p2 on the same column. With p1 and p2, we can then
-** draw a line between them using the draw_line function.
-** Concerns: draw_line draws one color. What about textures?
-*/
-
-// Actually, same as draw_line, but while loop condition ends when we reach
-// a wall in the map instead of reaching the second point
-void	ray_cast(t_point *start, double angle, int **map, t_img *img)
+void	ray_cast(t_point *start, double angle, int **map, t_point *end)
 {
-	// From point p and angle, we can determine dx and dy
-	t_point	p;
 	t_delta	delta;
-	p.x = start->x;
-	p.y = start->y;
-	delta_calc(&delta, &p, angle);
-	while (map[p.y][p.x] != 1)
+
+	end->x = start->x;
+	end->y = start->y;
+	delta_calc(&delta, end, angle);
+	while (map[end->y][end->x] != 1)
 	{
 		delta.e2 = delta.err;
 		if (delta.e2 > -delta.dx)
 		{
 			delta.err -= delta.dy;
-			p.x += delta.sx;
+			end->x += delta.sx;
 		}
 		if (delta.e2 < delta.dy)
 		{
 			delta.err += delta.dx;
-			p.y += delta.sy;
+			end->y += delta.sy;
 		}
 	}
-	// Draw the line between the two points
-}
-
-// Function to calculate how tall the wall should be drawn
-// based on the distance from the player to the wall.
-// Will produce a fisheye effect ?
-// return: int (number of pixels)
-int	wall_height(t_point *start, t_point *end)
-{
-	int	dx;
-	int	dy;
-
-	dx = end->x - start->x;
-	dy = end->y - start->y;
 }
