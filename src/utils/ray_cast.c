@@ -6,7 +6,7 @@
 /*   By: osarsari <osarsari@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 17:04:11 by osarsari          #+#    #+#             */
-/*   Updated: 2024/02/28 19:41:14 by osarsari         ###   ########.fr       */
+/*   Updated: 2024/02/29 10:25:49 by osarsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	delta_calc(t_delta *delta, t_point *start, double angle)
 
 // Actually, same as draw_line, but while loop condition ends when we reach
 // a wall in the map instead of reaching the second point
-void	ray_cast(t_point *start, double angle, int **map)
+void	ray_cast(t_point *start, double angle, int **map, t_img *img)
 {
 	// From point p and angle, we can determine dx and dy
 	t_point	p;
@@ -45,4 +45,33 @@ void	ray_cast(t_point *start, double angle, int **map)
 	p.x = start->x;
 	p.y = start->y;
 	delta_calc(&delta, &p, angle);
+	while (map[p.y][p.x] != 1)
+	{
+		delta.e2 = delta.err;
+		if (delta.e2 > -delta.dx)
+		{
+			delta.err -= delta.dy;
+			p.x += delta.sx;
+		}
+		if (delta.e2 < delta.dy)
+		{
+			delta.err += delta.dx;
+			p.y += delta.sy;
+		}
+	}
+	// Now that we have the intersection, we know how far the wall is.
+	// Next is to calculate the height of the wall and draw it.
+}
+
+// Function to calculate how tall the wall should be drawn
+// based on the distance from the player to the wall.
+// Will produce a fisheye effect ?
+// return: int (number of pixels)
+int	wall_height(t_point *start, t_point *end)
+{
+	int	dx;
+	int	dy;
+
+	dx = end->x - start->x;
+	dy = end->y - start->y;
 }
