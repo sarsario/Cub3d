@@ -6,7 +6,7 @@
 /*   By: osarsari <osarsari@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 15:19:08 by osarsari          #+#    #+#             */
-/*   Updated: 2024/02/29 11:38:01 by osarsari         ###   ########.fr       */
+/*   Updated: 2024/02/29 11:44:40 by osarsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int main()
 	// Hardcoded ceiling, floor and wall colors for testing purposes
 	// ceiling = blue, floor = green, wall = red
 	int	ceiling = 0x92C7CF;
-	int	floor = 0xA1EEBD;
+	// int	floor = 0xA1EEBD;
+	int floor = rgb_to_int(161, 238, 189);
 	// int	wall = 0xFF0000;
 
 	t_win	win;
