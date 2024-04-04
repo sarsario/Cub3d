@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_bg.c                                          :+:      :+:    :+:   */
+/*   frexit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osarsari <osarsari@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/29 11:22:59 by osarsari          #+#    #+#             */
-/*   Updated: 2024/02/29 11:27:26 by osarsari         ###   ########.fr       */
+/*   Created: 2024/03/12 11:21:22 by osarsari          #+#    #+#             */
+/*   Updated: 2024/03/12 11:38:51 by osarsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void	draw_bg(t_img *img, int ceiling, int floor)
+void	esc(t_game *game, int status)
 {
-	t_pixel	pixel;
-	int		half_height;
-
-	pixel.point.y = 0;
-	half_height = SHEIGHT / 2;
-	while (pixel.point.y < SHEIGHT)
-	{
-		pixel.color = floor;
-		if (pixel.point.y < half_height)
-			pixel.color = ceiling;
-		pixel.point.x = 0;
-		while (pixel.point.x < SWIDTH)
-		{
-			draw_pixel(img, &pixel);
-			pixel.point.x++;
-		}
-		pixel.point.y++;
-	}
+	mlx_destroy_image(game->mlx, game->img->img);
+	free(game->img);
+	free(game->player);
+	free(game->camera);
+	free(game->map);
+	mlx_destroy_window(game->mlx, game->win);
+	free(game);
+	exit(status);
 }

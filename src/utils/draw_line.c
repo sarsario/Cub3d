@@ -5,63 +5,51 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: osarsari <osarsari@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/28 10:09:46 by osarsari          #+#    #+#             */
-/*   Updated: 2024/02/28 17:05:21 by osarsari         ###   ########.fr       */
+/*   Created: 2024/02/29 14:08:00 by osarsari          #+#    #+#             */
+/*   Updated: 2024/03/12 11:16:36 by osarsari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void	delta_calc(t_delta *delta, t_point *a, t_point *b)
+static void	init_bresenham(t_bresenham *bresenham, t_point *p0, t_point *p1)
 {
-	delta->dx = abs(b->x - a->x);
-	delta->dy = abs(b->y - a->y);
-	delta->sx = -1;
-	delta->sy = -1;
-	if (a->x < b->x)
-		delta->sx = 1;
-	if (a->y < b->y)
-		delta->sy = 1;
-	delta->err = -delta->dy / 2;
-	if (delta->dx > delta->dy)
-		delta->err = delta->dx / 2;
+	bresenham->dx = abs(p1->x - p0->x);
+	bresenham->dy = abs(p1->y - p0->y);
+	bresenham->sx = 1;
+	bresenham->sy = 1;
+	bresenham->err = bresenham->dx / 2;
+	if (p0->x >= p1->x)
+		bresenham->sx = -1;
+	if (p0->y >= p1->y)
+		bresenham->sy = -1;
+	if (bresenham->dx <= bresenham->dy)
+		bresenham->err = -bresenham->dy / 2;
 }
 
-/*
-** This function draws a line between two points using the Bresenham's line
-** algorithm and the draw_pixel function
-**
-** t_img *img: the image to draw the line on
-** t_point *a: the first point
-** t_point *b: the second point
-** int color: the color of the line (in hexadecimal format 0xRRGGBB)
-**
-** return: void
-*/
-
-void	draw_line(t_img *img, t_point *a, t_point *b, int color)
+void	draw_line(t_img *img, t_point *p0, t_point *p1, int color)
 {
-	t_delta	delta;
-	t_pixel	pixel;
+	t_bresenham	data;
+	t_pixel		px;
 
-	pixel.color = color;
-	pixel.point.x = a->x;
-	pixel.point.y = a->y;
-	delta_calc(&delta, a, b);
-	while (pixel.point.x != b->x || pixel.point.y != b->y)
+	px.x = p0->x;
+	px.y = p0->y;
+	px.color = color;
+	init_bresenham(&data, p0, p1);
+	while (px.x != p1->x || px.y != p1->y)
 	{
-		draw_pixel(img, &pixel);
-		delta.e2 = delta.err;
-		if (delta.e2 > -delta.dx)
+		draw_pixel(img, &px);
+		data.e2 = data.err;
+		if (data.e2 > -data.dx)
 		{
-			delta.err -= delta.dy;
-			pixel.point.x += delta.sx;
+			data.err -= data.dy;
+			px.x += data.sx;
 		}
-		if (delta.e2 < delta.dy)
+		if (data.e2 < data.dy)
 		{
-			delta.err += delta.dx;
-			pixel.point.y += delta.sy;
+			data.err += data.dx;
+			px.y += data.sy;
 		}
 	}
-	draw_pixel(img, &pixel);
+	draw_pixel(img, &px);
 }
