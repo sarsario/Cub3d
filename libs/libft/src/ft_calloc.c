@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsteenpu <jsteenpu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/26 17:59:31 by osarsari          #+#    #+#             */
-/*   Updated: 2024/04/04 10:55:59 by jsteenpu         ###   ########.fr       */
+/*   Created: 2023/04/12 11:32:31 by jsteenpu          #+#    #+#             */
+/*   Updated: 2024/04/03 14:58:21 by jsteenpu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/libft.h"
 
-int	main(int ac, char **av)
+void	*ft_calloc(size_t count, size_t size)
 {
-	t_game	*game;
+	void	*ptr;
+	size_t	total;
 
-	if (ac != 2)
-	{
-		error_msg("pls provide just 1 scene description (.cub) file\n");
-		return (1);
-	}
-	game = (t_game *)malloc(sizeof(t_game));
-	if (!game)
-		return (1);
-	ft_memset((void *)game, 0, sizeof(t_game));
-	if (!init_checks(game, av[1]))
-		ft_free_checks(game);
-	if (!init_game(game))
-		ft_free_game(game);
-	return (0);
+	total = count * size;
+	if (size && (count != total / size))
+		return (NULL);
+	ptr = (char *)malloc(total);
+	if (ptr == NULL)
+		return (NULL);
+	ft_bzero(ptr, total);
+	return (ptr);
 }

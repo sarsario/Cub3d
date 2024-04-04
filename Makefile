@@ -1,34 +1,61 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: osarsari <osarsari@student.s19.be>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/02/26 09:11:13 by jsteenpu          #+#    #+#              #
+#    Updated: 2024/04/04 12:49:19 by osarsari         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+# Executable file / name
 NAME = cub3D
+
+# Compiler and flags
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-MLX = -L./mlx -lmlx -framework OpenGL -framework AppKit
-SRC_DIR = src
-UTILS_DIR = src/utils
-SRC = \
-	$(UTILS_DIR)/utils.c \
-	$(UTILS_DIR)/frexit.c \
-	$(SRC_DIR)/main.c \
-	$(SRC_DIR)/ray_cast.c \
-	$(SRC_DIR)/movement.c \
-	$(UTILS_DIR)/draw_line.c \
+MLX = -Lmlx -lmlx -framework OpenGL -framework AppKit
 
-OBJ = $(SRC:.c=.o)
-RM = rm -f
+# Source files
+SRCS =	src/main.c \
+		src/init_checks.c \
+		src/init_game.c \
+		src/init_graphics.c \
+		src/key_press.c \
+		src/key_movement.c \
+		src/map_checks.c \
+		src/map_grid.c \
+		src/map_type_id.c \
+		src/map_rgb.c \
+		src/map_utils.c \
+		src/raycasting.c \
+		src/raycasting_calcul.c \
+		src/raycasting_draw.c \
+		src/textures.c \
+		src/free.c \
+
+# Object files
+SRCS_OBJS = $(SRCS:%.c=%.o)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(NAME): $(SRCS_OBJS)
+	make -C ./libs/libft
+	$(CC) $(CFLAGS) $(MLX) -Llibs/libft -lft -o $@ $^
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(MLX)
-
 clean:
-	$(RM) $(OBJ)
+	make clean -C ./libs/libft
+	rm -f $(SRCS_OBJS)
 
 fclean: clean
+	make fclean -C ./libs/libft
 	rm -f $(NAME)
 
 re: fclean all
 
-run: all clean
-	./$(NAME)
-
-.PHONY: all clean fclean re run
+.PHONY: all clean fclean re

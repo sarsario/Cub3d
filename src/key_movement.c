@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osarsari <osarsari@student.s19.be>         +#+  +:+       +#+        */
+/*   By: jolandesteenput <jolandesteenput@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 12:11:56 by osarsari          #+#    #+#             */
-/*   Updated: 2024/03/12 11:17:45 by osarsari         ###   ########.fr       */
+/*   Updated: 2024/04/01 19:06:17 by jolandestee      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	move_w_s(t_player *player, int **map, int keycode)
+void	move_w_s(t_player *player, char **map, int keycode)
 {
 	double	move_x;
 	double	move_y;
@@ -29,13 +29,13 @@ void	move_w_s(t_player *player, int **map, int keycode)
 		move_x = player->x - player->dir_x * player->ms;
 		move_y = player->y - player->dir_y * player->ms;
 	}
-	if (map[(int)move_x][(int)player->y] == 0)
+	if (map[(int)player->y][(int)move_x] != '1')
 		player->x = move_x;
-	if (map[(int)player->x][(int)move_y] == 0)
+	if (map[(int)move_y][(int)player->x] != '1')
 		player->y = move_y;
 }
 
-void	move_a_d(t_player *player, int **map, int keycode)
+void	move_a_d(t_player *player, char **map, int keycode)
 {
 	double	move_x;
 	double	move_y;
@@ -52,9 +52,9 @@ void	move_a_d(t_player *player, int **map, int keycode)
 		move_x = player->x + player->dir_y * player->ms;
 		move_y = player->y - player->dir_x * player->ms;
 	}
-	if (map[(int)move_x][(int)player->y] == 0)
+	if (map[(int)player->y][(int)move_x] != '1')
 		player->x = move_x;
-	if (map[(int)player->x][(int)move_y] == 0)
+	if (map[(int)move_y][(int)player->x] != '1')
 		player->y = move_y;
 }
 

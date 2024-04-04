@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsteenpu <jsteenpu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/26 17:59:31 by osarsari          #+#    #+#             */
-/*   Updated: 2024/04/04 10:55:59 by jsteenpu         ###   ########.fr       */
+/*   Created: 2023/04/11 15:41:23 by jsteenpu          #+#    #+#             */
+/*   Updated: 2024/04/03 14:58:47 by jsteenpu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/libft.h"
 
-int	main(int ac, char **av)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	t_game	*game;
+	size_t			i;
+	unsigned char	*str1;
+	unsigned char	*str2;
 
-	if (ac != 2)
+	i = 0;
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	while (i < n)
 	{
-		error_msg("pls provide just 1 scene description (.cub) file\n");
-		return (1);
+		if (str1[i] != str2[i])
+			return (str1[i] - str2[i]);
+		i++;
 	}
-	game = (t_game *)malloc(sizeof(t_game));
-	if (!game)
-		return (1);
-	ft_memset((void *)game, 0, sizeof(t_game));
-	if (!init_checks(game, av[1]))
-		ft_free_checks(game);
-	if (!init_game(game))
-		ft_free_game(game);
 	return (0);
 }

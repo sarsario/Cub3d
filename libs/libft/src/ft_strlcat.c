@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsteenpu <jsteenpu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/26 17:59:31 by osarsari          #+#    #+#             */
-/*   Updated: 2024/04/04 10:55:59 by jsteenpu         ###   ########.fr       */
+/*   Created: 2023/04/06 15:50:05 by jsteenpu          #+#    #+#             */
+/*   Updated: 2024/04/03 14:59:12 by jsteenpu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/libft.h"
 
-int	main(int ac, char **av)
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	t_game	*game;
+	size_t	i;
+	size_t	d_len;
+	size_t	s_len;
 
-	if (ac != 2)
+	s_len = ft_strlen(src);
+	if (!dst && dstsize == 0)
+		return (s_len);
+	d_len = ft_strlen(dst);
+	if (dstsize <= d_len)
+		return (s_len + dstsize);
+	i = 0;
+	while (src[i] && (d_len + i < dstsize - 1))
 	{
-		error_msg("pls provide just 1 scene description (.cub) file\n");
-		return (1);
+		dst[d_len + i] = src[i];
+		i++;
 	}
-	game = (t_game *)malloc(sizeof(t_game));
-	if (!game)
-		return (1);
-	ft_memset((void *)game, 0, sizeof(t_game));
-	if (!init_checks(game, av[1]))
-		ft_free_checks(game);
-	if (!init_game(game))
-		ft_free_game(game);
-	return (0);
+	dst[d_len + i] = '\0';
+	return (d_len + s_len);
 }
